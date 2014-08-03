@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
-/**
- * A transparent {@link Activity} displaying a "Stop" options menu to remove the {@link LiveCard}.
- */
 public class LiveCardMenuActivity extends Activity {
 
     @Override

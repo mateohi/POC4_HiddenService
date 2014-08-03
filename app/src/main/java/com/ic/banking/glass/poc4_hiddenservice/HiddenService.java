@@ -13,7 +13,7 @@ public class HiddenService extends Service {
 
     private static final String LIVE_CARD_TAG = "HiddenService";
 
-    private LiveCard mLiveCard;
+    private LiveCard liveCard;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -22,27 +22,27 @@ public class HiddenService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (mLiveCard == null) {
-            mLiveCard = new LiveCard(this, LIVE_CARD_TAG);
+        if (liveCard == null) {
+            liveCard = new LiveCard(this, LIVE_CARD_TAG);
 
             RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.hidden);
-            mLiveCard.setViews(remoteViews);
+            liveCard.setViews(remoteViews);
 
             // Display the options menu when the live card is tapped.
             Intent menuIntent = new Intent(this, LiveCardMenuActivity.class);
-            mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
-            mLiveCard.publish(PublishMode.REVEAL);
+            liveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
+            liveCard.publish(PublishMode.REVEAL);
         } else {
-            mLiveCard.navigate();
+            liveCard.navigate();
         }
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        if (mLiveCard != null && mLiveCard.isPublished()) {
-            mLiveCard.unpublish();
-            mLiveCard = null;
+        if (liveCard != null && liveCard.isPublished()) {
+            liveCard.unpublish();
+            liveCard = null;
         }
         super.onDestroy();
     }
