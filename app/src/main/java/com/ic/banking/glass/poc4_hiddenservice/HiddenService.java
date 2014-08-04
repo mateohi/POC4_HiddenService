@@ -6,6 +6,7 @@ import com.google.android.glass.timeline.LiveCard.PublishMode;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.IBinder;
 import android.widget.RemoteViews;
 
@@ -22,6 +23,8 @@ public class HiddenService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        new GraphTask(getApplicationContext()).execute("mateo.hermida");
+        /*
         if (liveCard == null) {
             liveCard = new LiveCard(this, LIVE_CARD_TAG);
 
@@ -34,7 +37,7 @@ public class HiddenService extends Service {
             liveCard.publish(PublishMode.REVEAL);
         } else {
             liveCard.navigate();
-        }
+        }*/
         return START_STICKY;
     }
 
