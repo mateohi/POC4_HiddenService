@@ -1,14 +1,9 @@
 package com.ic.banking.glass.poc4_hiddenservice;
 
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.Toast;
-
-import com.google.android.glass.app.Card;
 
 public class GraphTask extends AsyncTask<String, Void, String> {
 
@@ -22,24 +17,27 @@ public class GraphTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        String user = params[0];
-        String userName = FacebookGraphService.instance().getUser(user).getName();
+        String userId = params[0];
+        UserDTO user = FacebookGraphService.instance().getUser(userId);
+        String userName = user != null ? user.getName() : null;
 
         return userName;
     }
 
     @Override
     protected void onPostExecute(String userName) {
-        String message = null;
+        String message;
         if (userName == null) {
             message = "Something went wrong...";
+            GlassDialog.warning(context, message);
         }
         else {
             message = "Username:\n" + userName;
+            GlassDialog.done(context, message);
             // context.startActivity(new Intent(this.context, LiveCardMenuActivity.class));
         }
         Log.i(TAG, message);
-        GlassToast.createShort(context, message).show();
+        //GlassToast.createLong(context, message).show();
     }
 
 }

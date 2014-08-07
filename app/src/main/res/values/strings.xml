@@ -5,5 +5,7 @@
     <string name="title_activity_hidden_service">Hidden service</string>
     <string name="action_stop">Stop</string>
     <string name="trigger_keyword">Show my transactions</string>
+    <string name="title_activity_dialog">DialogActivity</string>
+    <string name="action_dismiss">Dismiss</string>
 
 </resources>
